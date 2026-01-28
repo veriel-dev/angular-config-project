@@ -1,0 +1,41 @@
+<section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-primary-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+        {{ headline }}
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+        {{ subheadline }}
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          [href]="ctaLink"
+          class="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl"
+        >
+          {{ ctaText }}
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a
+          [href]="secondaryCtaLink"
+          class="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-primary-600 bg-white border-2 border-primary-600 hover:bg-primary-50 transition-colors"
+        >
+          {{ secondaryCtaText }}
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero Image/Illustration placeholder -->
+    <div class="mt-16 relative">
+      <div class="bg-gradient-to-r from-primary-100 to-primary-200 rounded-2xl h-64 md:h-96 flex items-center justify-center">
+        <div class="text-center">
+          <svg class="w-24 h-24 mx-auto text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <p class="mt-4 text-primary-600 font-medium">Tu proyecto aqui</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
