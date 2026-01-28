@@ -19,7 +19,11 @@
     "docker:des": "docker-compose up -d app-des",
     "docker:pre": "docker-compose up -d app-pre",
     "docker:pro": "docker-compose up -d app-pro",
-    "docker:rebuild": "docker-compose down && docker-compose build --no-cache && docker-compose up -d"
+    "docker:rebuild": "docker-compose down && docker-compose build --no-cache && docker-compose up -d",
+    "deploy:des": "./scripts/deploy.sh des",
+    "deploy:pre": "./scripts/deploy.sh pre",
+    "deploy:pro": "./scripts/deploy.sh pro",
+    "deploy:status": "./scripts/deploy.sh status"
   },
   "private": true,
   "dependencies": {
