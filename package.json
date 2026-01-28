@@ -24,7 +24,12 @@
     "deploy:pre": "./scripts/deploy.sh pre",
     "deploy:pro": "./scripts/deploy.sh pro",
     "deploy:check": "./scripts/deploy.sh check",
-    "deploy:status": "./scripts/deploy.sh status"
+    "deploy:status": "./scripts/deploy.sh status",
+    "remote:des": "./scripts/deploy-remote.sh des",
+    "remote:pre": "./scripts/deploy-remote.sh pre",
+    "remote:pro": "./scripts/deploy-remote.sh pro",
+    "remote:status": "./scripts/deploy-remote.sh status",
+    "remote:setup": "./scripts/deploy-remote.sh setup"
   },
   "private": true,
   "dependencies": {
