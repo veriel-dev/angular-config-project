@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Angular cache
+.angular
+
+# Test coverage
+coverage
+
+# Documentation
+docs
+*.md
+
+# Docker files (no need to copy into container)
+docker-compose*.yml
+Dockerfile*
+
+# Misc
+.editorconfig
+.browserslistrc

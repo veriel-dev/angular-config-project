@@ -11,7 +11,15 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch --no-progress --code-coverage",
     "test:watch": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:des": "docker-compose up -d app-des",
+    "docker:pre": "docker-compose up -d app-pre",
+    "docker:pro": "docker-compose up -d app-pro",
+    "docker:rebuild": "docker-compose down && docker-compose build --no-cache && docker-compose up -d"
   },
   "private": true,
   "dependencies": {

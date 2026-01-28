@@ -1,0 +1,45 @@
+services:
+  # Desarrollo (DES)
+  app-des:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: des
+    container_name: angular-des
+    ports:
+      - "4200:80"
+    restart: unless-stopped
+    labels:
+      - "environment=des"
+      - "app=angular-config-project"
+
+  # Preproduccion (PRE)
+  app-pre:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: pre
+    container_name: angular-pre
+    ports:
+      - "4300:80"
+    restart: unless-stopped
+    labels:
+      - "environment=pre"
+      - "app=angular-config-project"
+
+  # Produccion (PRO)
+  app-pro:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: pro
+    container_name: angular-pro
+    ports:
+      - "4400:80"
+    restart: unless-stopped
+    labels:
+      - "environment=pro"
+      - "app=angular-config-project"
