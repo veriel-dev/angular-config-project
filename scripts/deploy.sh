@@ -34,6 +34,47 @@ check_uncommitted_changes() {
     fi
 }
 
+# Run quality checks (lint + tests + coverage)
+run_quality_checks() {
+    print_header "RUNNING QUALITY CHECKS"
+
+    # Step 1: Lint
+    print_warning "Running lint..."
+    if npm run lint 2>&1; then
+        print_success "Lint passed"
+    else
+        print_error "Lint failed! Fix errors before deploying."
+        return 1
+    fi
+
+    # Step 2: Tests with coverage
+    print_warning "Running tests with coverage..."
+    TEST_OUTPUT=$(npm run test -- --browsers=ChromeHeadless 2>&1)
+    TEST_EXIT_CODE=$?
+
+    if [[ $TEST_EXIT_CODE -ne 0 ]]; then
+        echo "$TEST_OUTPUT"
+        print_error "Tests failed! Fix failing tests before deploying."
+        return 1
+    fi
+
+    # Check coverage threshold (already enforced by karma.conf.js at 80%)
+    if echo "$TEST_OUTPUT" | grep -q "does not meet global threshold"; then
+        echo "$TEST_OUTPUT"
+        print_error "Coverage below 80%! Add more tests before deploying."
+        return 1
+    fi
+
+    print_success "Tests passed with coverage >= 80%"
+
+    # Show coverage summary
+    echo ""
+    echo "$TEST_OUTPUT" | grep -A 5 "Coverage summary"
+    echo ""
+
+    return 0
+}
+
 # Deploy to DES
 deploy_des() {
     print_header "DEPLOYING TO DES"
@@ -43,6 +84,12 @@ deploy_des() {
     if [[ "$current_branch" != "develop" ]]; then
         print_warning "Switching to develop branch..."
         git checkout develop
+    fi
+
+    # Run quality checks
+    if ! run_quality_checks; then
+        print_error "Quality checks failed. Deployment aborted."
+        exit 1
     fi
 
     # Check for uncommitted changes
@@ -97,6 +144,12 @@ promote_pre() {
         exit 1
     fi
 
+    # Run quality checks
+    if ! run_quality_checks; then
+        print_error "Quality checks failed. Promotion aborted."
+        exit 1
+    fi
+
     # Create release branch
     print_warning "Creating branch $release_branch..."
     git checkout -b "$release_branch"
@@ -134,6 +187,12 @@ promote_pro() {
     if [[ "$current_branch" != release/* ]]; then
         print_error "You must be on a release/* branch to promote to PRO"
         print_warning "Current branch: $current_branch"
+        exit 1
+    fi
+
+    # Run quality checks
+    if ! run_quality_checks; then
+        print_error "Quality checks failed. Promotion aborted."
         exit 1
     fi
 
@@ -181,6 +240,17 @@ promote_pro() {
     print_success "Develop synced"
 }
 
+# Quick check (without deploy)
+check() {
+    run_quality_checks
+    if [[ $? -eq 0 ]]; then
+        echo -e "\n${GREEN}All checks passed! Ready to deploy.${NC}\n"
+    else
+        echo -e "\n${RED}Checks failed. Fix issues before deploying.${NC}\n"
+        exit 1
+    fi
+}
+
 # Status
 status() {
     print_header "DEPLOYMENT STATUS"
@@ -220,17 +290,26 @@ case "$1" in
     pro)
         promote_pro
         ;;
+    check)
+        check
+        ;;
     status)
         status
         ;;
     *)
-        echo "Usage: $0 {des|pre|pro|status}"
+        echo "Usage: $0 {des|pre|pro|check|status}"
         echo ""
         echo "Commands:"
-        echo "  des     Deploy changes to DES (from develop)"
-        echo "  pre     Promote to PRE (creates release branch)"
-        echo "  pro     Promote to PRO (merges to main)"
+        echo "  des     Deploy changes to DES (lint + tests + deploy)"
+        echo "  pre     Promote to PRE (lint + tests + create release)"
+        echo "  pro     Promote to PRO (lint + tests + merge to main)"
+        echo "  check   Run quality checks only (no deploy)"
         echo "  status  Show deployment status"
+        echo ""
+        echo "Quality checks (run before each deploy):"
+        echo "  - ESLint (code format)"
+        echo "  - Unit tests"
+        echo "  - Coverage >= 80%"
         exit 1
         ;;
 esac
