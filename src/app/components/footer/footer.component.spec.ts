@@ -24,7 +24,7 @@ describe('FooterComponent', () => {
   });
 
   it('should have company name', () => {
-    expect(component.companyName).toBe('StudioLab');
+    expect(component.companyName).toBe('StudioDev');
   });
 
   it('should have 4 social links', () => {

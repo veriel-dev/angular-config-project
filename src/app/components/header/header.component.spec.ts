@@ -43,7 +43,7 @@ describe('HeaderComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('header')).toBeTruthy();
     expect(compiled.textContent).toContain('Studio');
-    expect(compiled.textContent).toContain('Lab');
+    expect(compiled.textContent).toContain('Dev');
   });
 
   it('should render navigation links', () => {
