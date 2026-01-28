@@ -1,19 +1,19 @@
-<header class="bg-white shadow-sm fixed w-full top-0 z-50">
+<header class="bg-gray-800 shadow-lg fixed w-full top-0 z-50 border-b border-gray-700">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <div class="flex items-center">
         <a href="#" class="flex items-center">
-          <span class="text-2xl font-bold text-primary-600">Studio</span>
-          <span class="text-2xl font-light text-gray-600">Lab</span>
+          <span class="text-2xl font-bold text-primary-400">Studio</span>
+          <span class="text-2xl font-light text-gray-400">Lab</span>
         </a>
         <span
           *ngIf="envName !== 'PRO'"
           class="ml-2 px-2 py-1 text-xs font-semibold rounded"
           [ngClass]="{
-            'bg-yellow-100 text-yellow-800': envName === 'DES',
-            'bg-blue-100 text-blue-800': envName === 'PRE',
-            'bg-gray-100 text-gray-800': envName === 'LOCAL'
+            'bg-yellow-900 text-yellow-300': envName === 'DES',
+            'bg-blue-900 text-blue-300': envName === 'PRE',
+            'bg-gray-700 text-gray-300': envName === 'LOCAL'
           }"
         >
           {{ envName }}
@@ -25,13 +25,13 @@
         <a
           *ngFor="let link of navLinks"
           [href]="link.href"
-          class="text-gray-600 hover:text-primary-600 transition-colors font-medium"
+          class="text-gray-300 hover:text-primary-400 transition-colors font-medium"
         >
           {{ link.label }}
         </a>
         <a
           href="#contact"
-          class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+          class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-colors"
         >
           Empezar proyecto
         </a>
@@ -40,7 +40,7 @@
       <!-- Mobile menu button -->
       <button
         (click)="toggleMenu()"
-        class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+        class="md:hidden p-2 rounded-lg text-gray-300 hover:bg-gray-700"
         aria-label="Toggle menu"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,21 +65,21 @@
     <!-- Mobile Navigation -->
     <div
       *ngIf="isMenuOpen"
-      class="md:hidden py-4 border-t"
+      class="md:hidden py-4 border-t border-gray-700"
     >
       <div class="flex flex-col space-y-4">
         <a
           *ngFor="let link of navLinks"
           [href]="link.href"
           (click)="toggleMenu()"
-          class="text-gray-600 hover:text-primary-600 transition-colors font-medium"
+          class="text-gray-300 hover:text-primary-400 transition-colors font-medium"
         >
           {{ link.label }}
         </a>
         <a
           href="#contact"
           (click)="toggleMenu()"
-          class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-center"
+          class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-colors text-center"
         >
           Empezar proyecto
         </a>
